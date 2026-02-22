@@ -1,0 +1,77 @@
+.home-container {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.home-content {
+  max-width: 800px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 40px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.home-title {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.task-section {
+  margin-bottom: 30px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.task-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #ffd93d;
+}
+
+.task-section p {
+  line-height: 1.6;
+  color: #fff;
+}
+
+.task-list,
+.features-list {
+  line-height: 1.8;
+  color: #fff;
+  padding-left: 25px;
+}
+
+.task-list li,
+.features-list li {
+  margin-bottom: 10px;
+}
+
+code {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: #6bcf7f;
+  font-family: 'Courier New', monospace;
+}
+
+.navigation-hint {
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 20px;
+  background: rgba(102, 126, 234, 0.2);
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.navigation-hint p {
+  margin: 0;
+  color: #fff;
+}
