@@ -1,71 +1,47 @@
-import { useState, useEffect } from "react";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import Header from "./components/Header";
+import Home from "./Pages/Home";
+import VerticalTrafficLight from "./Pages/VerticalTrafficLight";
+import HorizontalTrafficLight from "./Pages/HorizontalTrafficLight";
+import ErrorPage from "./Pages/ErrorPage";
 import "./App.css";
-import TrafficLights from "./components/TrafficLights";
-import StatsBar from "./components/StatsBar";
-import trafficLightsDataJSON from "./data/trafficLightsData.json";
 
-function App() {
-  const [orientation, setOrientation] = useState("vertical");
-  const [trafficLightsData, setTrafficLightsData] = useState([]);
-
-  useEffect(() => {
-    setTrafficLightsData(trafficLightsDataJSON);
-  }, []);
-
-  const handleLightClick = (color) => {
-    setTrafficLightsData((prevData) =>
-      prevData.map((light) =>
-        light.colorName === color
-          ? { ...light, clickcount: light.clickcount + 1 }
-          : light
-      )
-    );
-  };
-
-  const handleOrientationChange = (newOrientation) => {
-    setOrientation(newOrientation);
-  };
-
-  // Конвертуємо дані для StatsBar
-  const clicks = trafficLightsData.reduce((acc, light) => {
-    acc[light.colorName] = light.clickcount;
-    return acc;
-  }, { red: 0, yellow: 0, green: 0 });
-
+const Layout = () => {
   return (
     <div className="App">
-      <h1 className="app-title">Інтерактивний світлофор</h1>
-
-      <StatsBar
-        clicks={clicks}
-        orientation={orientation}
-        onOrientationChange={handleOrientationChange}
-      />
-
-      <div className="traffic-light-section">
-        <TrafficLights
-          orientation={orientation}
-          onLightClick={handleLightClick}
-        />
-      </div>
-
-      <div className="data-display">
-        <h3>Дані з бази (JSON)</h3>
-        <div className="data-grid">
-          {trafficLightsData.map((light) => (
-            <div key={light.id} className="data-item">
-              <div
-                className="color-preview"
-                style={{ backgroundColor: light.color }}
-              ></div>
-              <p><strong>{light.description}</strong></p>
-              <p>Кліки: {light.clickcount}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+      <Header />
+      <main className="main-content">
+        <Outlet />
+      </main>
     </div>
   );
+};
+
+// Конфігурація маршрутів
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: "vertical",
+        element: <VerticalTrafficLight />,
+      },
+      {
+        path: "horizontal",
+        element: <HorizontalTrafficLight />,
+      },
+    ],
+  },
+]);
+
+function App() {
+  return <RouterProvider router={router} />;
 }
 
 export default App;
